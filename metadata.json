@@ -1,0 +1,7 @@
+{
+  "name": "TimeShift Radio - Seoul 91.9 FM",
+  "description": "Time-shifted Korean radio player broadcasting Seoul streams synchronized to local listener timezones with offline caching and custom scheduling.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
