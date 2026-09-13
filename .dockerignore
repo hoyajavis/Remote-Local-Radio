@@ -1,0 +1,14 @@
+node_modules/
+dist/
+build/
+coverage/
+.git/
+.gitignore
+.dockerignore
+*.log
+.env*
+tests/
+vitest.config.ts
+scripts/
+docs/
+README.md
