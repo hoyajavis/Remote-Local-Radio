@@ -13,8 +13,9 @@ export interface TimeShiftStatusResponse {
   };
 }
 
-export async function fetchStations(): Promise<RadioStation[]> {
-  const res = await fetch('/api/stations');
+export async function fetchStations(band?: string): Promise<RadioStation[]> {
+  const url = band ? `/api/stations?band=${encodeURIComponent(band)}` : '/api/stations';
+  const res = await fetch(url);
   if (!res.ok) throw new Error('Failed to fetch stations');
   const data = await res.json();
   return data.stations;
@@ -71,12 +72,16 @@ export async function fetchTimeShiftStatus(
   timezone: string,
   liveSync: boolean,
   scrubbedHour?: number,
-  scrubbedMinute?: number
+  scrubbedMinute?: number,
+  band?: string
 ): Promise<TimeShiftStatusResponse['data']> {
   const params = new URLSearchParams({
     timezone,
     liveSync: String(liveSync)
   });
+  if (band) {
+    params.append('band', band);
+  }
   if (scrubbedHour !== undefined) {
     params.append('scrubbedHour', String(scrubbedHour));
   }

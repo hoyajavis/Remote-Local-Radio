@@ -1,16 +1,25 @@
+export type BandMode = 'seoul_in_usa' | 'california_in_seoul';
+
 export interface RadioStation {
   id: string;
   name: string;
   nameKo: string;
   frequency: string; // e.g. "91.9 MHz"
   mhz: number; // e.g. 91.9
-  network: string; // "MBC", "KBS", "SBS", "TBS", "EBS", "Arirang"
+  network: string; // "MBC", "KBS", "SBS", "TBS", "EBS", "Arirang", "NPR", "Community"
   tagline: string;
   taglineKo: string;
   genre: string;
   color: string;
   streamUrl?: string;
   logoText: string;
+  band?: BandMode;
+  city?: string;
+  country?: string;
+  youtubeVideoId?: string;
+  hasVisibleRadio?: boolean;
+  isPaywalled?: boolean;
+  paywallNotice?: string;
 }
 
 export interface ScheduleSlot {
@@ -28,6 +37,8 @@ export interface ScheduleSlot {
   sourceStreamUrl?: string;
   customAudioKey?: string;
   isLiveBuffered?: boolean;
+  youtubeVideoId?: string;
+  hasVisibleRadio?: boolean;
 }
 
 export interface TimeShiftInfo {
@@ -47,32 +58,4 @@ export interface TimeShiftInfo {
   nextSlot: ScheduleSlot | null;
   elapsedInSlotMinutes: number;
   totalSlotMinutes: number;
-}
-
-export interface BufferSegment {
-  id: string;
-  stationId: string;
-  kstHour: number;
-  kstMinute: number;
-  duration: number; // in seconds
-  timestamp: number;
-  audioUrl: string;
-  cachedOffline: boolean;
-}
-
-export interface RadioState {
-  isPlaying: boolean;
-  isMuted: boolean;
-  volume: number; // 0 - 1
-  currentStationId: string;
-  frequencyMhz: number;
-  userTimezone: string;
-  isLiveSync: boolean;
-  scrubbedHour: number; // when not live sync
-  scrubbedMinute: number;
-  isOffline: boolean;
-  isSimulatedOffline: boolean;
-  cachedMinutes: number;
-  bufferHealthPct: number;
-  hourlyTimeSignalEnabled: boolean;
 }

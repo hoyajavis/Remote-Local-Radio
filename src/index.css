@@ -1,1 +1,224 @@
 @import "tailwindcss";
+
+@keyframes led-blink-fast {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.15; }
+}
+
+@keyframes led-pulse-slow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+.animate-led-blink-fast {
+  animation: led-blink-fast 0.65s ease-in-out infinite;
+}
+
+.animate-led-pulse-slow {
+  animation: led-pulse-slow 1.6s ease-in-out infinite;
+}
+
+@keyframes tft-power-dip {
+  0% { opacity: 0.3; filter: brightness(0.65) contrast(1.3); }
+  50% { opacity: 0.9; filter: brightness(0.88); }
+  100% { opacity: 1; filter: brightness(1); }
+}
+
+.animate-tft-power-dip {
+  animation: tft-power-dip 0.18s ease-out forwards;
+}
+
+@keyframes hsync-sweep {
+  0% { transform: translateY(-100%); opacity: 0.75; }
+  100% { transform: translateY(100%); opacity: 0; }
+}
+
+.animate-hsync-sweep {
+  animation: hsync-sweep 0.22s linear forwards;
+}
+
+@keyframes osd-double-blink {
+  0%, 100% { opacity: 1; }
+  25%, 65% { opacity: 0.15; }
+  45%, 85% { opacity: 1; }
+}
+
+.animate-osd-double-blink {
+  animation: osd-double-blink 0.6s ease-in-out;
+}
+
+/* ============================================================
+   Authentic VFD (Vacuum Fluorescent Display) Hardware Physics
+   ============================================================ */
+
+:root {
+  --vfd-cyan-core: #effcff;
+  --vfd-cyan-bright: #38efc6;
+  --vfd-cyan-mid: #05c7dc;
+  --vfd-cyan-deep: #079eaf;
+  --vfd-unlit-phosphor: rgba(14, 45, 42, 0.42);
+  --vfd-unlit-border: rgba(10, 36, 34, 0.65);
+  --vfd-red-bright: #ff4757;
+  --vfd-red-unlit: rgba(60, 15, 18, 0.38);
+  --vfd-amber-bright: #ffb703;
+  --vfd-amber-unlit: rgba(55, 32, 8, 0.38);
+}
+
+.font-dseg-7 {
+  font-family: 'DSEG7-Classic', 'VT323', monospace;
+}
+
+.font-dseg-14 {
+  font-family: 'DSEG14-Classic', 'VT323', monospace;
+}
+
+.font-vfd-matrix {
+  font-family: 'Share Tech Mono', 'VT323', monospace;
+}
+
+/* Authentic 505nm ZnO:Zn Phosphor Glow Shaders */
+.vfd-glow-cyan {
+  color: var(--vfd-cyan-core);
+  text-shadow:
+    0 0 1.5px #ffffff,
+    0 0 4px var(--vfd-cyan-bright),
+    0 0 10px rgba(56, 239, 198, 0.78),
+    0 0 20px rgba(5, 199, 220, 0.45),
+    0 0 35px rgba(2, 140, 160, 0.25);
+}
+
+.vfd-glow-red {
+  color: #fff0f2;
+  text-shadow:
+    0 0 1.5px #ffffff,
+    0 0 4px var(--vfd-red-bright),
+    0 0 10px rgba(255, 71, 87, 0.8),
+    0 0 22px rgba(255, 45, 61, 0.4);
+}
+
+.vfd-glow-amber {
+  color: #fffaf0;
+  text-shadow:
+    0 0 1.5px #ffffff,
+    0 0 4px var(--vfd-amber-bright),
+    0 0 10px rgba(255, 183, 3, 0.8),
+    0 0 22px rgba(251, 133, 0, 0.4);
+}
+
+.vfd-unlit {
+  color: var(--vfd-unlit-phosphor);
+  text-shadow: none !important;
+  user-select: none;
+}
+
+.vfd-unlit-red {
+  color: var(--vfd-red-unlit);
+  text-shadow: none !important;
+  user-select: none;
+}
+
+.vfd-unlit-amber {
+  color: var(--vfd-amber-unlit);
+  text-shadow: none !important;
+  user-select: none;
+}
+
+/* Dot-Matrix Phosphor Dot Raster Mask for CJK / Alphanumeric text */
+.vfd-dot-matrix-text {
+  background-image: radial-gradient(circle, rgba(0, 0, 0, 0) 55%, rgba(2, 6, 8, 0.82) 65%);
+  background-size: 3px 3px;
+}
+
+/* Hexagonal / Diamond Control Grid Pattern */
+.vfd-hex-grid {
+  background-image: 
+    radial-gradient(circle at center, rgba(5, 199, 220, 0.04) 1px, transparent 1px),
+    linear-gradient(to right, rgba(0,0,0,0.5) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0,0,0,0.5) 1px, transparent 1px);
+  background-size: 4px 4px, 8px 8px, 8px 8px;
+}
+
+/* Glass Cylindrical Specular Reflection */
+.vfd-glass-glare {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.12) 0%,
+    rgba(255, 255, 255, 0.04) 8%,
+    rgba(255, 255, 255, 0.00) 24%,
+    rgba(255, 255, 255, 0.00) 75%,
+    rgba(255, 255, 255, 0.03) 95%,
+    rgba(255, 255, 255, 0.08) 100%
+  );
+}
+
+/* ============================================================
+   AUTHENTIC AMBER BACKLIT 7-SEGMENT STN LCD CLOCK MODULE
+   ============================================================ */
+.amber-clock-module {
+  background:
+    radial-gradient(ellipse at 15% 15%, rgba(255, 210, 110, 0.45) 0%, transparent 60%),
+    linear-gradient(175deg, #f2a833 0%, #d88e1e 40%, #c47c12 85%, #b26e0e 100%);
+  border: 1px solid rgba(80, 40, 0, 0.55);
+  box-shadow:
+    inset 0 1px 3px rgba(60, 30, 0, 0.65),
+    0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.amber-clock-active {
+  color: #141713;
+  filter: drop-shadow(1px 1px 0px rgba(40, 25, 5, 0.4));
+}
+
+.amber-clock-ghost {
+  color: rgba(30, 24, 12, 0.12);
+  user-select: none;
+}
+
+/* ============================================================
+   COLOR ACTIVE-MATRIX TFT-LCD MONITOR (MAIN SCREEN)
+   ============================================================ */
+.color-tft-screen {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(16, 42, 60, 0.35) 0%, transparent 70%),
+    linear-gradient(180deg, #091218 0%, #050b10 50%, #020609 100%);
+  border: 1px solid rgba(20, 45, 65, 0.45);
+  box-shadow: inset 0 2px 14px rgba(0, 0, 0, 0.9);
+}
+
+/* Physical RGB Subpixel Aperture Grid */
+.tft-subpixel-grid {
+  background-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0.65) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.65) 1px, transparent 1px);
+  background-size: 3px 3px;
+}
+
+/* CCFL Edge Glow & Protective Anti-Reflective Acrylic Glare */
+.tft-glare {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    transparent 35%,
+    transparent 75%,
+    rgba(255, 255, 255, 0.03) 100%
+  );
+}
+
+/* ============================================================
+   HARDWARE BROADCAST TEXT MARQUEE / AUTO-SCROLL
+   ============================================================ */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: inline-flex;
+  white-space: nowrap;
+  animation: marquee linear infinite;
+  will-change: transform;
+}

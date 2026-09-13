@@ -1,6 +1,6 @@
-import { RadioStation, ScheduleSlot } from '../types/radio';
+import { RadioStation, ScheduleSlot, BandMode } from '../types/radio';
 
-export const DEFAULT_STATIONS: RadioStation[] = [
+export const SEOUL_STATIONS: RadioStation[] = [
   {
     id: 'mbc-919',
     name: 'MBC FM4U',
@@ -10,15 +10,39 @@ export const DEFAULT_STATIONS: RadioStation[] = [
     network: 'MBC',
     tagline: 'Good Friend MBC FM4U',
     taglineKo: '만나면 좋은 친구 MBC FM4U',
-    genre: 'Pop, K-Pop, Variety & Talk',
+    genre: 'Pop, Variety & Morning Talk',
     color: '#0284c7', // Sky blue
     logoText: '91.9 FM4U',
-    streamUrl: 'https://cdn.live.stream.mbc.co.kr/live/fm4u/index.m3u8'
+    streamUrl: 'https://cdn.live.stream.mbc.co.kr/live/fm4u/index.m3u8',
+    band: 'seoul_in_usa',
+    city: 'Seoul',
+    country: 'South Korea',
+    hasVisibleRadio: true,
+    youtubeVideoId: 'jpL-oY8PTaM' // 봉춘라디오 verified embed
+  },
+  {
+    id: 'sbs-1077',
+    name: 'SBS Power',
+    nameKo: 'SBS 파워',
+    frequency: '107.7 MHz',
+    mhz: 107.7,
+    network: 'SBS',
+    tagline: 'Power Up Your Morning with SBS',
+    taglineKo: '보는 라디오 즐거움 가득 SBS 파워FM',
+    genre: 'Comedy, K-Pop, Prime Morning Talk',
+    color: '#f59e0b', // Amber
+    logoText: '107.7 POWER',
+    streamUrl: 'https://sbs-radio.stream.co.kr/powerfm/live.m3u8',
+    band: 'seoul_in_usa',
+    city: 'Seoul',
+    country: 'South Korea',
+    hasVisibleRadio: true,
+    youtubeVideoId: 'suUYC0BHNiM' // SBS ERaO verified embed
   },
   {
     id: 'kbs-891',
-    name: 'KBS Cool FM',
-    nameKo: 'KBS 쿨FM',
+    name: 'KBS Cool',
+    nameKo: 'KBS 쿨',
     frequency: '89.1 MHz',
     mhz: 89.1,
     network: 'KBS',
@@ -27,65 +51,352 @@ export const DEFAULT_STATIONS: RadioStation[] = [
     genre: 'K-Pop, Youth Culture, Top 40',
     color: '#e11d48', // Crimson rose
     logoText: '89.1 COOL',
-    streamUrl: 'https://kbs-radio.stream.co.kr/coolfm/live.m3u8'
+    streamUrl: 'https://kbs-radio.stream.co.kr/coolfm/live.m3u8',
+    band: 'seoul_in_usa',
+    city: 'Seoul',
+    country: 'South Korea',
+    hasVisibleRadio: true,
+    youtubeVideoId: 'Cz6bjKsIrSM' // KBS CoolFM Studio Cam verified embed
   },
   {
-    id: 'sbs-1077',
-    name: 'SBS Power FM',
-    nameKo: 'SBS 파워FM',
-    frequency: '107.7 MHz',
-    mhz: 107.7,
-    network: 'SBS',
-    tagline: 'Power Up Your Day with SBS',
-    taglineKo: '보는 라디오 즐거움 가득 SBS 파워FM',
-    genre: 'Comedy, K-Pop, Prime Talk',
-    color: '#f59e0b', // Amber
-    logoText: '107.7 POWER',
-    streamUrl: 'https://sbs-radio.stream.co.kr/powerfm/live.m3u8'
+    id: 'tbs-951',
+    name: 'TBS',
+    nameKo: 'TBS 교통방송',
+    frequency: '95.1 MHz',
+    mhz: 95.1,
+    network: 'TBS',
+    tagline: "Seoul City News & Morning Commute",
+    taglineKo: '서울의 아침, 출근길 교통과 시사',
+    genre: 'Seoul News, Traffic, City Beat',
+    color: '#10b981', // Emerald
+    logoText: '95.1 TBS',
+    streamUrl: 'https://cdnfm.tbs.seoul.kr/tbs/_definst_/tbs_fm_web_360.smil/playlist.m3u8',
+    band: 'seoul_in_usa',
+    city: 'Seoul',
+    country: 'South Korea',
+    hasVisibleRadio: false
+  },
+  {
+    id: 'cbs-939',
+    name: 'CBS Music',
+    nameKo: 'CBS 음악',
+    frequency: '93.9 MHz',
+    mhz: 93.9,
+    network: 'CBS',
+    tagline: 'Calm Healing & Classical Melodies',
+    taglineKo: '마음을 편안하게 하는 음악의 숲',
+    genre: 'Acoustic, Classic Pop, Healing',
+    color: '#6366f1', // Indigo
+    logoText: '93.9 CBS',
+    streamUrl: 'https://m-aac.cbs.co.kr/mweb_cbs939/_definst_/cbs939.stream/playlist.m3u8',
+    band: 'seoul_in_usa',
+    city: 'Seoul',
+    country: 'South Korea',
+    hasVisibleRadio: false
+  },
+  {
+    id: 'ebs-1045',
+    name: 'EBS',
+    nameKo: 'EBS 교육방송',
+    frequency: '104.5 MHz',
+    mhz: 104.5,
+    network: 'EBS',
+    tagline: 'Knowledge, Books & Morning Special',
+    taglineKo: '책 읽어주는 라디오, 배움의 즐거움',
+    genre: 'Literature, Acoustic, English Special',
+    color: '#8b5cf6', // Violet
+    logoText: '104.5 EBS',
+    streamUrl: 'https://radio.bsod.kr/stream/?stn=ebs&ch=fm',
+    band: 'seoul_in_usa',
+    city: 'Seoul',
+    country: 'South Korea',
+    hasVisibleRadio: false
+  },
+  {
+    id: 'kbs-931',
+    name: 'KBS Classic',
+    nameKo: 'KBS 클래식',
+    frequency: '93.1 MHz',
+    mhz: 93.1,
+    network: 'KBS',
+    tagline: 'Commercial-free classical masterworks and evening jazz',
+    taglineKo: '명작 클래식과 밤의 감성 재즈',
+    genre: 'Classical Masterworks, Symphony, Evening Jazz',
+    color: '#0ea5e9', // Sky blue
+    logoText: '93.1 CLASSIC',
+    streamUrl: 'https://radio.bsod.kr/stream/?stn=kbs&ch=1fm',
+    band: 'seoul_in_usa',
+    city: 'Seoul',
+    country: 'South Korea',
+    hasVisibleRadio: false
+  },
+  {
+    id: 'kbs-1061',
+    name: 'KBS Happy',
+    nameKo: 'KBS 해피',
+    frequency: '106.1 MHz',
+    mhz: 106.1,
+    network: 'KBS',
+    tagline: 'Retro pop & 7080 nostalgic hits',
+    taglineKo: '중장년 감성 레트로 가요 & 7080 팝',
+    genre: 'Retro Pop, 7080 Gayo, Oldies',
+    color: '#f97316', // Bright orange
+    logoText: '106.1 HAPPY',
+    streamUrl: 'https://radio.bsod.kr/stream/?stn=kbs&ch=happy',
+    band: 'seoul_in_usa',
+    city: 'Seoul',
+    country: 'South Korea',
+    hasVisibleRadio: false
   },
   {
     id: 'tbs-1013',
     name: 'TBS eFM',
-    nameKo: 'TBS eFM 서울',
+    nameKo: 'TBS eFM',
     frequency: '101.3 MHz',
     mhz: 101.3,
     network: 'TBS',
-    tagline: "Seoul's No.1 Foreign Language Station",
-    taglineKo: '서울의 소리, 세계를 잇는 TBS eFM',
-    genre: 'Seoul News, English/Korean Talk, City Beat',
-    color: '#10b981', // Emerald
+    tagline: 'English-language Korean pop culture & daily Seoul news',
+    taglineKo: '영어 통근 뉴스, K-Pop & 다문화 라이프스타일',
+    genre: 'English Pop Culture, Lifestyle, Seoul News',
+    color: '#06b6d4', // Cyan
     logoText: '101.3 eFM',
-    streamUrl: 'https://tbs.stream.co.kr/efm/live.m3u8'
+    streamUrl: 'https://radio.bsod.kr/stream/?stn=tbs&ch=efm',
+    band: 'seoul_in_usa',
+    city: 'Seoul',
+    country: 'South Korea',
+    hasVisibleRadio: false
   },
   {
-    id: 'ebs-1045',
-    name: 'EBS FM',
-    nameKo: 'EBS 교육방송 FM',
-    frequency: '104.5 MHz',
-    mhz: 104.5,
-    network: 'EBS',
-    tagline: 'Knowledge, Culture & Classic Audio',
-    taglineKo: '책 읽어주는 라디오, 배움의 즐거움',
-    genre: 'Literature, Acoustic, Culture & World',
-    color: '#8b5cf6', // Violet
-    logoText: '104.5 EBS',
-    streamUrl: 'https://ebs.stream.co.kr/fm/live.m3u8'
-  },
-  {
-    id: 'arirang-fm',
-    name: 'Arirang Radio',
-    nameKo: '아리랑 라디오',
-    frequency: '88.7 MHz',
-    mhz: 88.7,
-    network: 'Arirang',
-    tagline: 'Korea World Service Broadcasting',
-    taglineKo: '세계인을 위한 한국 음악과 문화',
-    genre: 'Global K-Pop, Korean Indie, Culture Talk',
-    color: '#ec4899', // Pink
-    logoText: 'ARIRANG',
-    streamUrl: 'https://amdlive.ctnd.com.edgesuite.net/arirang_radio/smil:arirang_radio.smil/playlist.m3u8'
+    id: 'afn-885',
+    name: 'AFN The Eagle',
+    nameKo: 'AFN The Eagle',
+    frequency: '88.5 MHz',
+    mhz: 88.5,
+    network: 'AFN',
+    tagline: 'American Top 40, US sports, and local community updates',
+    taglineKo: '미국 빌보드 Top 40, 스포츠 & 커뮤니티',
+    genre: 'American Top 40, US Sports, Contemporary Hits',
+    color: '#1e3a8a', // Deep navy
+    logoText: '88.5 EAGLE',
+    streamUrl: 'https://playerservices.streamtheworld.com/api/livestream-redirect/AFNP_OSN.mp3',
+    band: 'seoul_in_usa',
+    city: 'Camp Humphreys / Osan',
+    country: 'South Korea',
+    hasVisibleRadio: false
   }
 ];
+
+export const CALIFORNIA_STATIONS: RadioStation[] = [
+  {
+    id: 'kazu-903',
+    name: 'KAZU',
+    nameKo: 'KAZU (NPR)',
+    frequency: '90.3 MHz',
+    mhz: 90.3,
+    network: 'NPR',
+    tagline: 'NPR for the Monterey Bay Area',
+    taglineKo: '몬터레이 베이 NPR 공영 라디오',
+    genre: 'NPR News, Morning Edition, Local Bay Reports',
+    color: '#0284c7', // Sky blue
+    logoText: '90.3 KAZU',
+    streamUrl: 'https://kazu.streamguys1.com/kazu.mp3',
+    band: 'california_in_seoul',
+    city: 'Monterey Bay, CA',
+    country: 'United States',
+    hasVisibleRadio: false
+  },
+  {
+    id: 'ksqd-907',
+    name: 'KSQD',
+    nameKo: 'KSQD (K-Squid)',
+    frequency: '90.7 MHz',
+    mhz: 90.7,
+    network: 'Community',
+    tagline: 'Central Coast Community Radio',
+    taglineKo: '센트럴 코스트 커뮤니티 라디오',
+    genre: 'Indie, Eclectic Rock, Central Coast Talk',
+    color: '#10b981', // Emerald
+    logoText: '90.7 KSQD',
+    streamUrl: 'https://ksqd.info:8100/stream',
+    band: 'california_in_seoul',
+    city: 'Santa Cruz / Monterey, CA',
+    country: 'United States',
+    hasVisibleRadio: false
+  },
+  {
+    id: 'kzsc-881',
+    name: 'KZSC',
+    nameKo: 'KZSC (UC 산타크루즈)',
+    frequency: '88.1 MHz',
+    mhz: 88.1,
+    network: 'College',
+    tagline: 'The Great 88 from Santa Cruz',
+    taglineKo: 'UC 산타크루즈 대학 독립 라디오',
+    genre: 'College Indie, Jazz, Global Grooves',
+    color: '#f59e0b', // Amber
+    logoText: '88.1 KZSC',
+    streamUrl: 'https://stream.kzsc.org/kzsc.mp3',
+    band: 'california_in_seoul',
+    city: 'Santa Cruz, CA',
+    country: 'United States',
+    hasVisibleRadio: false
+  },
+  {
+    id: 'kqei-893',
+    name: 'KQEI',
+    nameKo: 'KQEI (KQED)',
+    frequency: '89.3 MHz',
+    mhz: 89.3,
+    network: 'KQED/NPR',
+    tagline: 'KQED Public Radio for Monterey Bay',
+    taglineKo: '몬터레이 베이 공영 라디오',
+    genre: 'NPR News, California Report, Public Affairs',
+    color: '#ea580c', // Orange
+    logoText: '89.3 KQEI',
+    streamUrl: 'https://streams.kqed.org/kqedradio',
+    band: 'california_in_seoul',
+    city: 'Monterey Bay, CA',
+    country: 'United States',
+    hasVisibleRadio: false
+  },
+  {
+    id: 'smoothjazz-100',
+    name: 'SmoothJazz.com',
+    nameKo: '스무스재즈 닷컴',
+    frequency: '100.1 MHz',
+    mhz: 100.1,
+    network: 'Jazz',
+    tagline: 'Born on the Monterey Coast',
+    taglineKo: '카멜 바이 더 씨 감성 스무스 재즈',
+    genre: 'Smooth Jazz, Coastal Chill, Lounge',
+    color: '#8b5cf6', // Violet
+    logoText: 'SMOOTH JAZZ',
+    streamUrl: 'https://smoothjazz.cdnstream1.com/2585_128.mp3',
+    band: 'california_in_seoul',
+    city: 'Carmel-by-the-Sea, CA',
+    country: 'United States',
+    hasVisibleRadio: false
+  },
+  {
+    id: 'kwav-969',
+    name: 'KWAV',
+    nameKo: 'KWAV (K-Wave)',
+    frequency: '96.9 MHz',
+    mhz: 96.9,
+    network: 'Stephens Media',
+    tagline: 'Adult Contemporary & Upbeat Pop Hits',
+    taglineKo: '몬터레이 성인 컨템포러리 팝 & 히트곡',
+    genre: 'Adult Contemporary, Pop Hits, Family Morning Drive',
+    color: '#0e7490', // Ocean teal
+    logoText: '96.9 K-WAVE',
+    streamUrl: 'https://ice9.securenetsystems.net/KWAV',
+    band: 'california_in_seoul',
+    city: 'Monterey, CA',
+    country: 'United States',
+    hasVisibleRadio: false
+  },
+  {
+    id: 'kdon-1025',
+    name: 'KDON',
+    nameKo: 'KDON (Top 40)',
+    frequency: '102.5 MHz',
+    mhz: 102.5,
+    network: 'iHeartMedia',
+    tagline: 'The Monterey Bay Area\'s #1 Hit Music Station',
+    taglineKo: '몬터레이 베이 1위 빌보드 최신 팝 채널',
+    genre: 'Top 40, Mainstream Hits, Contemporary Pop',
+    color: '#db2777', // Hot pink
+    logoText: '102.5 KDON',
+    streamUrl: 'https://stream.revma.ihrhls.com/zc2930',
+    band: 'california_in_seoul',
+    city: 'Salinas / Monterey, CA',
+    country: 'United States',
+    hasVisibleRadio: false
+  },
+  {
+    id: 'kocn-1051',
+    name: 'KOCN',
+    nameKo: 'KOCN (K-Ocean)',
+    frequency: '105.1 MHz',
+    mhz: 105.1,
+    network: 'iHeartMedia',
+    tagline: 'Rhythmic Oldies & 90s/2000s Throwback R&B',
+    taglineKo: '퍼시픽 그로브 레트로 R&B, 훵크 & 올디스',
+    genre: 'Rhythmic Oldies, Classic Hip Hop, Throwback R&B',
+    color: '#d97706', // Sunset gold
+    logoText: '105.1 K-OCEAN',
+    streamUrl: 'https://stream.revma.ihrhls.com/zc3639',
+    band: 'california_in_seoul',
+    city: 'Pacific Grove, CA',
+    country: 'United States',
+    hasVisibleRadio: false
+  },
+  {
+    id: 'kpig-1075',
+    name: 'KPIG',
+    nameKo: 'KPIG (K-PIG)',
+    frequency: '107.5 MHz',
+    mhz: 107.5,
+    network: 'Stephens Media',
+    tagline: 'Americana, Blues, Folk & Classic Rock',
+    taglineKo: '센트럴 코스트 로컬 포크, 블루스 & 아메리카나',
+    genre: 'Americana, Blues, Folk, Classic Rock',
+    color: '#b45309', // Rustic amber
+    logoText: '107.5 KPIG',
+    band: 'california_in_seoul',
+    city: 'Freedom / Watsonville, CA',
+    country: 'United States',
+    hasVisibleRadio: false,
+    isPaywalled: true,
+    paywallNotice: 'KPIG 107.5 Freedom, CA requires an official Pig Pen subscription at kpig.com/listen'
+  },
+  {
+    id: 'ktom-927',
+    name: 'KTOM',
+    nameKo: 'KTOM (컨트리)',
+    frequency: '92.7 MHz',
+    mhz: 92.7,
+    network: 'iHeartMedia',
+    tagline: 'Salinas Valley & Monterey Country Music',
+    taglineKo: '살리나스 밸리 정통 & 현대 컨트리 음악',
+    genre: 'Mainstream Country, Modern Country Classics',
+    color: '#1e40af', // Denim blue
+    logoText: '92.7 K-TOM',
+    streamUrl: 'https://stream.revma.ihrhls.com/zc2934',
+    band: 'california_in_seoul',
+    city: 'Salinas / Monterey, CA',
+    country: 'United States',
+    hasVisibleRadio: false
+  },
+  {
+    id: 'kdfc-899',
+    name: 'KDFC',
+    nameKo: 'KDFC (클래식)',
+    frequency: '89.9 MHz',
+    mhz: 89.9,
+    network: 'Classical California',
+    tagline: 'Commercial-Free Classical for Highway 1 Drives',
+    taglineKo: '퍼시픽 그로브 해안 드라이브 클래식',
+    genre: 'Classical, Orchestral Masterworks, Choral',
+    color: '#881337', // Burgundy
+    logoText: '89.9 KDFC',
+    streamUrl: 'http://14923.live.streamtheworld.com/KDFCFM5_SC',
+    band: 'california_in_seoul',
+    city: 'Pacific Grove / Monterey, CA',
+    country: 'United States',
+    hasVisibleRadio: false
+  }
+];
+
+export const ALL_STATIONS: RadioStation[] = [...SEOUL_STATIONS, ...CALIFORNIA_STATIONS];
+export const DEFAULT_STATIONS: RadioStation[] = SEOUL_STATIONS;
+
+export function getStationsForBand(band: BandMode): RadioStation[] {
+  const stations = band === 'california_in_seoul' ? CALIFORNIA_STATIONS : SEOUL_STATIONS;
+  return stations
+    .filter(s => s.band === band)
+    .sort((a, b) => a.mhz - b.mhz);
+}
 
 export const DEFAULT_SCHEDULE: ScheduleSlot[] = [
   {

@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { RadioStation, ScheduleSlot } from '../src/types/radio.js';
-import { DEFAULT_STATIONS, DEFAULT_SCHEDULE } from '../src/data/defaultStations.js';
+import { ALL_STATIONS, DEFAULT_SCHEDULE } from '../src/data/defaultStations.js';
 
 const DATA_DIR = path.resolve(process.cwd(), 'data');
 const SCHEDULE_FILE = path.join(DATA_DIR, 'schedule.json');
@@ -10,6 +10,7 @@ const STATIONS_FILE = path.join(DATA_DIR, 'stations.json');
 class RadioDatabase {
   private stations: RadioStation[] = [];
   private schedule: ScheduleSlot[] = [];
+  private isWriting: boolean = false;
   private bufferStats = {
     totalBufferedMinutes: 1440, // 24 hours continuously indexed
     activeListeners: 1,
@@ -27,14 +28,9 @@ class RadioDatabase {
         fs.mkdirSync(DATA_DIR, { recursive: true });
       }
 
-      // Load or seed stations
-      if (fs.existsSync(STATIONS_FILE)) {
-        const data = fs.readFileSync(STATIONS_FILE, 'utf-8');
-        this.stations = JSON.parse(data);
-      } else {
-        this.stations = DEFAULT_STATIONS;
-        fs.writeFileSync(STATIONS_FILE, JSON.stringify(this.stations, null, 2), 'utf-8');
-      }
+      // Always ensure full station catalog (all bands)
+      this.stations = ALL_STATIONS;
+      fs.writeFileSync(STATIONS_FILE, JSON.stringify(this.stations, null, 2), 'utf-8');
 
       // Load or seed schedule
       if (fs.existsSync(SCHEDULE_FILE)) {
@@ -46,13 +42,37 @@ class RadioDatabase {
       }
     } catch (err) {
       console.warn('Error reading persistent database files, falling back to in-memory defaults:', err);
-      this.stations = DEFAULT_STATIONS;
+      this.stations = ALL_STATIONS;
       this.schedule = DEFAULT_SCHEDULE;
     }
   }
 
-  public getStations(): RadioStation[] {
-    return this.stations;
+  /**
+   * Atomic, non-blocking asynchronous persistence to prevent JSON corruption
+   */
+  private async persistSchedule(): Promise<void> {
+    const tmpFile = path.join(DATA_DIR, `schedule.${Date.now()}.${Math.random().toString(36).slice(2, 6)}.tmp`);
+    try {
+      await fs.promises.mkdir(DATA_DIR, { recursive: true });
+      await fs.promises.writeFile(tmpFile, JSON.stringify(this.schedule, null, 2), 'utf-8');
+      await fs.promises.rename(tmpFile, SCHEDULE_FILE);
+    } catch (err) {
+      console.error('Failed to persist schedule to file, operating with in-memory state:', err);
+      try {
+        if (fs.existsSync(tmpFile)) {
+          await fs.promises.unlink(tmpFile);
+        }
+      } catch {}
+    }
+  }
+
+  public getStations(band?: string): RadioStation[] {
+    if (band) {
+      return this.stations
+        .filter(s => s.band === band)
+        .sort((a, b) => a.mhz - b.mhz);
+    }
+    return [...this.stations].sort((a, b) => a.mhz - b.mhz);
   }
 
   public getStation(id: string): RadioStation | undefined {
@@ -68,43 +88,32 @@ class RadioDatabase {
     });
   }
 
-  public saveSchedule(newSchedule: ScheduleSlot[]): ScheduleSlot[] {
+  public async saveSchedule(newSchedule: ScheduleSlot[]): Promise<ScheduleSlot[]> {
     this.schedule = newSchedule;
-    try {
-      if (!fs.existsSync(DATA_DIR)) {
-        fs.mkdirSync(DATA_DIR, { recursive: true });
-      }
-      fs.writeFileSync(SCHEDULE_FILE, JSON.stringify(this.schedule, null, 2), 'utf-8');
-    } catch (err) {
-      console.error('Failed to persist schedule to file:', err);
-    }
+    await this.persistSchedule();
     return this.getSchedule();
   }
 
-  public resetSchedule(): ScheduleSlot[] {
+  public async resetSchedule(): Promise<ScheduleSlot[]> {
     this.schedule = DEFAULT_SCHEDULE;
-    try {
-      fs.writeFileSync(SCHEDULE_FILE, JSON.stringify(this.schedule, null, 2), 'utf-8');
-    } catch (err) {
-      console.error('Failed to reset schedule file:', err);
-    }
+    await this.persistSchedule();
     return this.getSchedule();
   }
 
-  public addOrUpdateSlot(slot: ScheduleSlot): ScheduleSlot[] {
+  public async addOrUpdateSlot(slot: ScheduleSlot): Promise<ScheduleSlot[]> {
     const idx = this.schedule.findIndex(s => s.id === slot.id);
     if (idx >= 0) {
       this.schedule[idx] = slot;
     } else {
       this.schedule.push(slot);
     }
-    this.saveSchedule(this.schedule);
+    await this.persistSchedule();
     return this.getSchedule();
   }
 
-  public deleteSlot(slotId: string): ScheduleSlot[] {
+  public async deleteSlot(slotId: string): Promise<ScheduleSlot[]> {
     this.schedule = this.schedule.filter(s => s.id !== slotId);
-    this.saveSchedule(this.schedule);
+    await this.persistSchedule();
     return this.getSchedule();
   }
 

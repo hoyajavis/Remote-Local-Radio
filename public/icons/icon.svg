@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2d221b"/>
+      <stop offset="50%" stop-color="#181310"/>
+      <stop offset="100%" stop-color="#0a0807"/>
+    </linearGradient>
+    <linearGradient id="amber" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="96" fill="url(#bg)" stroke="#44352b" stroke-width="8"/>
+  <rect x="36" y="36" width="440" height="440" rx="80" fill="none" stroke="#f59e0b" stroke-opacity="0.25" stroke-width="4"/>
+  
+  <!-- Radio Dial & Speaker Grill -->
+  <circle cx="256" cy="256" r="160" fill="#120e0c" stroke="#f59e0b" stroke-width="12"/>
+  <circle cx="256" cy="256" r="136" fill="none" stroke="#f59e0b" stroke-opacity="0.15" stroke-width="2"/>
+  
+  <!-- Frequency Marks -->
+  <path d="M 256 120 L 256 140" stroke="#f59e0b" stroke-width="6" stroke-linecap="round"/>
+  <path d="M 160 160 L 174 174" stroke="#f59e0b" stroke-width="6" stroke-linecap="round"/>
+  <path d="M 352 160 L 338 174" stroke="#f59e0b" stroke-width="6" stroke-linecap="round"/>
+  
+  <!-- Central Knob -->
+  <circle cx="256" cy="256" r="72" fill="url(#amber)" filter="drop-shadow(0 8px 16px rgba(0,0,0,0.6))"/>
+  <circle cx="256" cy="256" r="48" fill="#78350f"/>
+  <line x1="256" y1="216" x2="256" y2="240" stroke="#fef3c7" stroke-width="6" stroke-linecap="round"/>
+  
+  <!-- Typography -->
+  <text x="256" y="440" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="34" letter-spacing="4" fill="#f59e0b" text-anchor="middle">TIMESHIFT</text>
+</svg>

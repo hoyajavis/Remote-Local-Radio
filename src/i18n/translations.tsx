@@ -73,20 +73,6 @@ export interface Translations {
   filterEvening: string;
   filterNight: string;
 
-  // Offline Manager
-  offlineTitle: string;
-  offlineDesc: string;
-  cachedTime: string;
-  indexedSegments: string;
-  bufferHealth: string;
-  preBufferBtn: string;
-  preBuffering: string;
-  clearCacheBtn: string;
-  simulateOfflineMode: string;
-  offlineActiveNotice: string;
-  onlineNotice: string;
-  testAudioEngine: string;
-
   // Station Directory
   directoryTitle: string;
   directoryDesc: string;
@@ -130,6 +116,36 @@ export interface Translations {
   // Footer
   footerTitle: string;
   footerStatus: string;
+  audioDisplayTitle: string;
+  displayModeLcd: string;
+  displayModeVfd: string;
+  camEffectTitle: string;
+  camEffectClean: string;
+  camEffectTft: string;
+  camEffectComposite: string;
+  camEffectOsd: string;
+  camEffectOff: string;
+  audioEffectTitle: string;
+  audioEffectClean: string;
+  audioEffectTube: string;
+  audioEffectTabletop: string;
+  audioEffectVintageAm: string;
+
+  // Appliance UI & Two Bands
+  bandSeoulTitle: string;
+  bandSeoulSub: string;
+  bandCaTitle: string;
+  bandCaSub: string;
+  weatherSeoul: string;
+  weatherMonterey: string;
+  yourLocationLabel: string;
+  broadcastLocationLabel: string;
+  studioCamOn: string;
+  studioCamOff: string;
+  studioCamUnavailable: string;
+  studioCamOnAir: string;
+  drawerSettings: string;
+  closeDrawer: string;
 }
 
 export const TRANSLATIONS: Record<Language, Translations> = {
@@ -204,63 +220,79 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     filterEvening: 'Evening (18-22)',
     filterNight: 'Night (22-06)',
 
-    // Offline Manager
-    offlineTitle: 'Offline Broadcast Cache & Resilience',
-    offlineDesc: 'Pre-buffers audio segments into browser storage (IndexedDB) for uninterrupted listening during network drops.',
-    cachedTime: 'CACHED BUFFER TIME',
-    indexedSegments: 'INDEXED SEGMENTS',
-    bufferHealth: 'BUFFER HEALTH',
-    preBufferBtn: 'Pre-buffer Next 30 min',
-    preBuffering: 'Caching Segments...',
-    clearCacheBtn: 'Clear Storage Cache',
-    simulateOfflineMode: 'Simulate Offline Mode (Airplane/Subway)',
-    offlineActiveNotice: 'Offline Mode Active: Serving exclusively from IndexedDB local storage.',
-    onlineNotice: 'Network Connected: Real-time streaming and synchronization active.',
-    testAudioEngine: 'Test Audio Engine Fallback',
-
     // Station Directory
     directoryTitle: 'South Korean Broadcaster Relays & Transmitter Sites',
     directoryDesc: 'Key FM radio channels originating from N Seoul Tower (Namsan) and Mount Gwanak.',
     tuneInStation: 'Tune In →',
 
     // Admin Modal
-    adminTitle: 'Custom Schedule Builder (1-Hour Intervals)',
-    adminSubtitle: 'Each 1-hour block (60 min) can be mapped to different Seoul station relays or custom streams.',
-    adminSlotsCount: '24 HOURLY SLOTS',
-    inspectNotice: 'Click any hour below to inspect & customize',
+    adminTitle: 'Custom 24-Hour Schedule Builder',
+    adminSubtitle: 'Configure each 1-hour interval (60 minutes) to mix different Seoul stations or audio relays throughout the day.',
+    adminSlotsCount: '24 One-Hour Slots',
+    inspectNotice: 'Click any hour button below to inspect and customize that broadcast slot',
     selectedInterval: '1-Hour Interval • 60 Minutes',
-    previewAudio: 'Preview Audio',
-    relaySourceStation: 'RELAY SOURCE STATION',
-    showTitleKo: 'SHOW TITLE (KOREAN)',
-    showTitleEn: 'SHOW TITLE (ENGLISH)',
-    djName: 'DJ / HOST NAME',
-    genreLabel: 'GENRE / SOUND SIGNATURE',
-    descLabel: 'DESCRIPTION / SEGMENT NOTES',
-    quickRangeTitle: 'QUICK RANGE TOOL: BATCH ASSIGN 1-HOUR INTERVALS',
-    fromHour: 'From Hour:',
-    toHour: 'to',
-    assignStation: 'assign station:',
-    applyRangeBtn: 'Apply to Range',
-    showingIntervals: 'Showing 1-hour intervals',
-    resetDefaultBtn: 'Reset to Standard 24-Hour Lineup',
+    previewAudio: 'Preview Audio Segment',
+    relaySourceStation: 'Relay Source Station',
+    showTitleKo: 'Show Title (Korean)',
+    showTitleEn: 'Show Title (English)',
+    djName: 'Host / DJ Name',
+    genreLabel: 'Genre / Sound Style',
+    descLabel: 'Program Summary / Segment Notes',
+    quickRangeTitle: 'Quick Range Batch Fill: Set multiple 1-hour slots at once',
+    fromHour: 'Start Hour:',
+    toHour: 'End Hour:',
+    assignStation: 'Assign Station:',
+    applyRangeBtn: 'Apply Batch Range',
+    showingIntervals: 'Displaying 1-Hour Intervals',
+    resetDefaultBtn: 'Reset to Default 24h Grid',
     cancelBtn: 'Cancel',
-    saveScheduleBtn: 'Save 24-Hour Schedule',
+    saveScheduleBtn: 'Save 24h Schedule',
     savingBtn: 'Saving...',
     savedSuccess: 'Saved 24-Hour Schedule!',
 
     // Help Modal
-    helpTitle: 'How Time-Shift Radio Works',
-    helpP1: 'The Concept: California (PDT) is 16 hours behind South Korea (KST). If you listen to live Seoul radio at 7:00 AM California time, Seoul is already at 11:00 PM late night!',
-    helpP2: 'The Time-Shift Solution: Our backend buffers, indexes, and replays South Korean live broadcasts so that at 7:00 AM in California, you hear what aired at 7:00 AM in Seoul on 91.9 MHz (e.g., Good Morning FM Tei with Seoul rush hour commute talk).',
-    helpBullet1: 'Live Synchronized: 1:1 match of your local hour to Seoul broadcast hour.',
-    helpBullet2: 'Timeline Scrubber: Jump to any hour of the day (lunch, evening commute, late night).',
-    helpBullet3: 'Offline Caching: Pre-buffers chunks in browser IndexedDB for subway/offline listening.',
-    helpBullet4: 'Custom Schedule Builder: Admin can mix different stations into custom 1-hour time slots.',
-    helpCloseBtn: 'Got It, Tune In!',
+    helpTitle: 'How TimeShift Radio Works',
+    helpP1: 'TimeShift Radio aligns international radio broadcasts with your local waking life. Instead of hearing late-night talk during your morning commute, you hear that station\'s actual morning show as if you were living there.',
+    helpP2: 'Select between two regional bands using the switch at the top of the chassis:',
+    helpBullet1: '🇰🇷 Seoul in USA: South Korean morning & evening FM broadcasts (MBC FM4U, KBS Cool FM, SBS Power FM, TBS) time-shifted across the 16-hour Pacific time gap.',
+    helpBullet2: '🇺🇸 CA in Korea: California Central Coast & Monterey Bay radio (KAZU NPR, KQED, KDON Top 40, KOCN Oldies, KDFC Classical) playing live or time-aligned in Seoul.',
+    helpBullet3: '📺 Studio Cam (보이는 라디오): Tap CAM to toggle synchronized studio video and VOD with sub-minute precision.',
+    helpBullet4: '🎛️ Car Stereo Controls & Presets: Tap ◀ SEEK ▶ to browse stations. Press & hold any button 1–6 to save your current station, just like a car stereo.',
+    helpCloseBtn: 'Got it, Back to Radio',
 
     // Footer
-    footerTitle: 'TimeShift Radio Engine • Seoul 91.9 MHz MBC FM4U / KBS 89.1 / SBS 107.7 Relay',
-    footerStatus: 'Buffered Audio Index Active'
+    footerTitle: 'TimeShift Radio Engine',
+    footerStatus: 'Time-Shift Sync Active',
+    audioDisplayTitle: 'AUDIO DISPLAY',
+    displayModeLcd: '▣ Color TFT',
+    displayModeVfd: '⚡ VFD Tube',
+    camEffectTitle: 'CAM EFFECT LAB',
+    camEffectClean: '1. Clean',
+    camEffectTft: '2. TFT Matrix',
+    camEffectComposite: '3. Composite',
+    camEffectOsd: '4. Full OSD',
+    camEffectOff: 'Off (Raw)',
+    audioEffectTitle: 'AUDIO DSP',
+    audioEffectClean: '1. Studio Hi-Fi',
+    audioEffectTube: '2. Warm Tube',
+    audioEffectTabletop: '3. Tabletop',
+    audioEffectVintageAm: '4. Vintage AM',
+
+    // Appliance UI & Two Bands
+    bandSeoulTitle: 'Seoul in USA (서울의 소리)',
+    bandSeoulSub: 'Korean morning & evening radio playing in your American timezone',
+    bandCaTitle: 'California in Korea (캘리포니아 사운드)',
+    bandCaSub: 'Monterey Bay & Central Coast local community radio playing in Seoul',
+    weatherSeoul: 'Seoul: Clear 19°C (66°F) • Morning commute smooth',
+    weatherMonterey: 'Monterey Bay: Foggy 58°F (14°C) • Coastal breeze & surf clear',
+    yourLocationLabel: 'YOUR TIME',
+    broadcastLocationLabel: 'BROADCAST TIME',
+    studioCamOn: 'Studio Cam (보이는 라디오)',
+    studioCamOff: 'Audio-Only Mode',
+    studioCamUnavailable: 'Visible Radio Unavailable',
+    studioCamOnAir: 'LIVE STUDIO VOD',
+    drawerSettings: '24-Hour Schedule & Custom Settings',
+    closeDrawer: 'Close Drawer'
   },
   ko: {
     // Brand & Header
@@ -333,20 +365,6 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     filterEvening: '저녁 (18-22시)',
     filterNight: '심야 (22-06시)',
 
-    // Offline Manager
-    offlineTitle: '오프라인 방송 캐시 & 네트워크 복원력',
-    offlineDesc: '네트워크가 끊기거나 지하철 구간에서도 끊김 없이 청취할 수 있도록 오디오 세그먼트를 브라우저(IndexedDB)에 미리 저장합니다.',
-    cachedTime: '캐시된 버퍼 시간',
-    indexedSegments: '저장된 세그먼트',
-    bufferHealth: '버퍼 무결성',
-    preBufferBtn: '다음 30분 구간 사전 캐시',
-    preBuffering: '세그먼트 캐싱 중...',
-    clearCacheBtn: '캐시 저장소 비우기',
-    simulateOfflineMode: '오프라인 모드 시뮬레이션 (비행기/지하철 모드)',
-    offlineActiveNotice: '오프라인 모드 활성: 로컬 IndexedDB 캐시에서만 음원이 재생됩니다.',
-    onlineNotice: '네트워크 연결됨: 실시간 스트리밍 및 동기화 작동 중.',
-    testAudioEngine: '오디오 엔진 대체 작동 테스트',
-
     // Station Directory
     directoryTitle: '대한민국 대표 FM 방송국 & 송신소 목록',
     directoryDesc: '남산 서울타워 및 관악산 송신소에서 송출되는 주요 FM 라디오 채널입니다.',
@@ -378,18 +396,48 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     savedSuccess: '24시간 편성표가 저장되었습니다!',
 
     // Help Modal
-    helpTitle: '타임시프트 라디오 작동 원리',
-    helpP1: '개념: 캘리포니아(PDT)는 한국(KST)보다 16시간 느립니다. 캘리포니아 오전 7시에 실시간 서울 라디오를 들으면 서울은 이미 밤 11시 심야 방송이 나옵니다.',
-    helpP2: '타임시프트 해결책: 서울의 실시간 방송 스트림을 백엔드에서 캡처·버퍼링하여 캘리포니아 오전 7시에 서울의 아침 7시 출근길 방송(MBC 91.9MHz 굿모닝FM 테이 등)을 현지 시간에 맞춰 그대로 들려줍니다.',
-    helpBullet1: '실시간 동기화: 현지 시각과 서울 방송 시각을 1:1로 정확하게 일치시킵니다.',
-    helpBullet2: '타임라인 스크러버: 점심시간, 퇴근길, 심야 별밤 등 원하는 시간대를 자유롭게 탐색할 수 있습니다.',
-    helpBullet3: '오프라인 캐싱: 지하철이나 통신 불안정 구간을 위해 IndexedDB에 음원을 미리 버퍼링합니다.',
-    helpBullet4: '맞춤 편성표: 관리자가 1시간 단위로 다양한 방송국을 믹스하여 맞춤 채널을 구성할 수 있습니다.',
-    helpCloseBtn: '확인, 라디오 듣기',
+    helpTitle: '타임시프트 라디오 이용 안내',
+    helpP1: '타임시프트 라디오는 지구 반대편의 라디오 방송을 청취자의 현지 생활 리듬에 맞춰 시차를 조정해 주는 가상 시간대 라디오입니다. 아침 출근길에 심야 방송 대신, 현지에서 아침에 방송되는 출근길 프로그램을 실시간처럼 들을 수 있습니다.',
+    helpP2: '상단 밴드 스위치를 통해 두 지역의 방송을 자유롭게 전환할 수 있습니다:',
+    helpBullet1: '🇰🇷 서울의 소리 (Seoul in USA): 16시간 시차가 나는 미국 현지에서 한국의 아침·저녁 FM 생방송(MBC FM4U, KBS Cool FM, SBS Power FM, TBS)을 내 출퇴근 시간에 맞춰 청취합니다.',
+    helpBullet2: '🇺🇸 캘리포니아 사운드 (CA in Korea): 캘리포니아 몬터레이 베이 및 센트럴 코스트 현지 방송(KAZU NPR, KQED, KDON Top 40, KOCN 올디스, KDFC 클래식)을 한국에서 청취합니다.',
+    helpBullet3: '📺 보이는 라디오 (CAM): 영상 버튼을 눌러 스튜디오 생중계 및 VOD를 초 단위까지 정확하게 동기화하여 시청할 수 있습니다.',
+    helpBullet4: '🎛️ 자동차 오디오 방식 조작: ◀ SEEK ▶ 버튼으로 전체 방송을 탐색하고, 마음에 드는 채널을 들으며 1~6번 버튼을 길게 누르면(Hold) 차량 오디오처럼 즉시 저장됩니다.',
+    helpCloseBtn: '확인, 라디오로 돌아가기',
 
     // Footer
-    footerTitle: '타임시프트 라디오 엔진 • 서울 91.9 MHz MBC FM4U / KBS 89.1 / SBS 107.7 릴레이',
-    footerStatus: '오디오 버퍼 인덱스 정상 작동중'
+    footerTitle: '타임시프트 라디오 엔진',
+    footerStatus: '시차 동기화 정상 작동중',
+    audioDisplayTitle: '오디오 디스플레이',
+    displayModeLcd: '▣ 컬러 TFT',
+    displayModeVfd: '⚡ VFD 진공관',
+    camEffectTitle: '캠 효과 테스트랩',
+    camEffectClean: '1. 클린 아크릴',
+    camEffectTft: '2. TFT 매트릭스',
+    camEffectComposite: '3. 아날로그 컴포짓',
+    camEffectOsd: '4. 풀 OSD',
+    camEffectOff: '끄기 (원본)',
+    audioEffectTitle: '음향 DSP',
+    audioEffectClean: '1. 스튜디오 하이파이',
+    audioEffectTube: '2. 진공관 FM',
+    audioEffectTabletop: '3. 탁상용 라디오',
+    audioEffectVintageAm: '4. 빈티지 AM',
+
+    // Appliance UI & Two Bands
+    bandSeoulTitle: '서울의 소리 (Seoul in USA)',
+    bandSeoulSub: '미국 시차에 맞춰 서울의 아침·저녁 생방송을 현지 리듬으로 재생',
+    bandCaTitle: '캘리포니아 사운드 (CA in Korea)',
+    bandCaSub: '한국에서 몬터레이 베이·센트럴 코스트 현지 커뮤니티 라디오 청취',
+    weatherSeoul: '서울: 맑음 19°C • 출근길 교통 원활',
+    weatherMonterey: '몬터레이 베이: 안개 58°F (14°C) • 해안 바람 & 파도 양호',
+    yourLocationLabel: '내 현재 시각',
+    broadcastLocationLabel: '방송 현지 시각',
+    studioCamOn: '보이는 라디오 (스튜디오 캠)',
+    studioCamOff: '오디오 전용 모드',
+    studioCamUnavailable: '보이는 라디오 미지원 방송',
+    studioCamOnAir: '스튜디오 생중계 VOD',
+    drawerSettings: '24시간 편성표 & 상세 설정',
+    closeDrawer: '설정 서랍 닫기'
   }
 };
 

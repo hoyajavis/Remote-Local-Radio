@@ -45,78 +45,6 @@ export function createWavBuffer(samples: Float32Array, sampleRate: number = 2205
 }
 
 /**
- * Generate a 6-second broadcast segment tailored to the station and hour
- */
-export function generateBroadcastSegment(
-  stationId: string,
-  hour: number,
-  segmentIndex: number,
-  durationSec: number = 6
-): Buffer {
-  const sampleRate = 22050;
-  const totalSamples = Math.floor(sampleRate * durationSec);
-  const samples = new Float32Array(totalSamples);
-
-  // Base harmony frequency depending on station and time of day
-  // Morning (5-9): C Major / A Minor uplifting chords (261Hz, 329Hz, 392Hz)
-  // Afternoon (12-16): Vibrant G Major / D Major chords (392Hz, 440Hz, 587Hz)
-  // Evening (18-21): Warm Soul / Jazz 7th chords (F Major 7, A Minor)
-  // Night (22-4): Dreamy Lo-fi / Pentatonic ambient chill (E minor, B minor)
-  
-  let baseFreq = 220; // A3
-  if (stationId === 'mbc-919') {
-    baseFreq = (hour >= 6 && hour < 12) ? 261.63 : (hour >= 12 && hour < 18) ? 293.66 : (hour >= 18 && hour < 22) ? 220.00 : 196.00;
-  } else if (stationId === 'kbs-891') {
-    baseFreq = 329.63; // E4 upbeat
-  } else if (stationId === 'sbs-1077') {
-    baseFreq = 293.66; // D4 bright
-  } else if (stationId === 'tbs-1013') {
-    baseFreq = 246.94; // B3 cosmopolitan
-  } else {
-    baseFreq = 220;
-  }
-
-  // Chord progression changes every 2 seconds
-  const chordRoots = [baseFreq, baseFreq * 1.25, baseFreq * 1.5, baseFreq * 1.334];
-
-  for (let i = 0; i < totalSamples; i++) {
-    const t = i / sampleRate;
-    const chordIdx = Math.floor(t / 1.5) % chordRoots.length;
-    const f = chordRoots[chordIdx];
-
-    // Sub-bass root
-    const bass = 0.25 * Math.sin(2 * Math.PI * (f / 2) * t);
-
-    // Warm Rhodes / FM electric piano harmonic stack
-    const fundamental = 0.22 * Math.sin(2 * Math.PI * f * t);
-    const harmonic3 = 0.12 * Math.sin(2 * Math.PI * f * 1.5 * t);
-    const harmonic5 = 0.08 * Math.sin(2 * Math.PI * f * 2.0 * t);
-    const shimmer = 0.04 * Math.sin(2 * Math.PI * (f * 3.01) * t);
-
-    // Subtle gentle rhythm pulse (snare/rim click + hi-hat tick every 0.75s)
-    const beatPhase = (t % 0.75) / 0.75;
-    const kickEnvelope = Math.exp(-beatPhase * 25);
-    const kick = 0.15 * Math.sin(2 * Math.PI * 60 * beatPhase) * kickEnvelope;
-
-    // Atmospheric warm analog radio hiss (subtle)
-    const radioNoise = (Math.random() * 2 - 1) * 0.018;
-
-    // Smooth envelope at chunk boundaries to prevent clicks
-    let envelope = 1.0;
-    const fadeSamples = sampleRate * 0.05; // 50ms fade
-    if (i < fadeSamples) {
-      envelope = i / fadeSamples;
-    } else if (i > totalSamples - fadeSamples) {
-      envelope = (totalSamples - i) / fadeSamples;
-    }
-
-    samples[i] = (bass + fundamental + harmonic3 + harmonic5 + shimmer + kick + radioNoise) * envelope * 0.7;
-  }
-
-  return createWavBuffer(samples, sampleRate);
-}
-
-/**
  * Generate authentic Korean hourly time check signal (시보 음):
  * In South Korea, radio time signal plays at 57s, 58s, 59s with high pitched short pips (1000Hz, 100ms)
  * and at 00s a sustained higher tone (2000Hz or 1000Hz, 800ms) indicating the exact hour!
@@ -127,12 +55,12 @@ export function generateTimeCheckSignal(hour: number): Buffer {
   const totalSamples = Math.floor(sampleRate * durationSec);
   const samples = new Float32Array(totalSamples);
 
-  // Pip events at t = 0.5s (57s), t = 1.5s (58s), t = 2.5s (59s), t = 3.5s (00s sustained)
+  // Korean HLA broadcast standard: 3 warning pips at 440 Hz (A4) and 1 long chime at 880 Hz (A5)
   const pips = [
-    { start: 0.5, dur: 0.12, freq: 880 },
-    { start: 1.5, dur: 0.12, freq: 880 },
-    { start: 2.5, dur: 0.12, freq: 880 },
-    { start: 3.5, dur: 0.75, freq: 1760 } // The top-of-hour long beep
+    { start: 0.5, dur: 0.10, freq: 440 },
+    { start: 1.5, dur: 0.10, freq: 440 },
+    { start: 2.5, dur: 0.10, freq: 440 },
+    { start: 3.5, dur: 0.80, freq: 880 } // The top-of-hour long beep
   ];
 
   for (let i = 0; i < totalSamples; i++) {
@@ -144,7 +72,7 @@ export function generateTimeCheckSignal(hour: number): Buffer {
         const pt = t - pip.start;
         // smooth attack and decay
         const env = Math.sin((pt / pip.dur) * Math.PI);
-        val += Math.sin(2 * Math.PI * pip.freq * pt) * env * 0.6;
+        val += Math.sin(2 * Math.PI * pip.freq * pt) * env * 0.5;
       }
     }
 
