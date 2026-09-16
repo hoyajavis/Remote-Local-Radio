@@ -13,7 +13,7 @@ export const SEOUL_STATIONS: RadioStation[] = [
     genre: 'Pop, Variety & Morning Talk',
     color: '#0284c7', // Sky blue
     logoText: '91.9 FM4U',
-    streamUrl: 'https://cdn.live.stream.mbc.co.kr/live/fm4u/index.m3u8',
+    streamUrl: 'https://radio.bsod.kr/stream?stn=mbc&ch=mfm',
     band: 'seoul_in_usa',
     city: 'Seoul',
     country: 'South Korea',
@@ -32,7 +32,7 @@ export const SEOUL_STATIONS: RadioStation[] = [
     genre: 'Comedy, K-Pop, Prime Morning Talk',
     color: '#f59e0b', // Amber
     logoText: '107.7 POWER',
-    streamUrl: 'https://sbs-radio.stream.co.kr/powerfm/live.m3u8',
+    streamUrl: 'https://radio.bsod.kr/stream?stn=sbs&ch=powerfm',
     band: 'seoul_in_usa',
     city: 'Seoul',
     country: 'South Korea',
@@ -51,7 +51,7 @@ export const SEOUL_STATIONS: RadioStation[] = [
     genre: 'K-Pop, Youth Culture, Top 40',
     color: '#e11d48', // Crimson rose
     logoText: '89.1 COOL',
-    streamUrl: 'https://kbs-radio.stream.co.kr/coolfm/live.m3u8',
+    streamUrl: 'https://radio.bsod.kr/stream?stn=kbs&ch=2fm',
     band: 'seoul_in_usa',
     city: 'Seoul',
     country: 'South Korea',
@@ -235,7 +235,7 @@ export const CALIFORNIA_STATIONS: RadioStation[] = [
     genre: 'College Indie, Jazz, Global Grooves',
     color: '#f59e0b', // Amber
     logoText: '88.1 KZSC',
-    streamUrl: 'https://stream.kzsc.org/kzsc.mp3',
+    streamUrl: 'https://kzscfms1-geckohost.radioca.st/kzschigh',
     band: 'california_in_seoul',
     city: 'Santa Cruz, CA',
     country: 'United States',
