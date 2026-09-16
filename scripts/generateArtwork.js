@@ -109,7 +109,12 @@ const STATIONS = [
   { id: 'kocn-1051', name: '105.1 K-Ocean', freq: '105.1 MHz', color: [217, 119, 6], sub: 'Rhythmic Oldies & R&B' },
   { id: 'kpig-1075', name: 'KPIG 107.5', freq: '107.5 MHz', color: [180, 83, 9], sub: 'Americana, Blues & Folk' },
   { id: 'ktom-927', name: '92.7 K-TOM', freq: '92.7 MHz', color: [30, 64, 175], sub: 'Salinas Valley Country' },
-  { id: 'kdfc-899', name: 'KDFC 89.9', freq: '89.9 MHz', color: [136, 19, 55], sub: 'Northern CA Classical' }
+  { id: 'kdfc-899', name: 'KDFC 89.9', freq: '89.9 MHz', color: [136, 19, 55], sub: 'Northern CA Classical' },
+  { id: 'ytn-945', name: 'YTN News FM', freq: '94.5 MHz', color: [2, 132, 199], sub: '24시간 대한민국 뉴스채널' },
+  { id: 'mbc-959', name: 'MBC 표준FM', freq: '95.9 MHz', color: [3, 105, 161], sub: '시선을 모으는 정통 시사' },
+  { id: 'kbs-973', name: 'KBS 1라디오', freq: '97.3 MHz', color: [29, 78, 216], sub: '대한민국 정통 시사보도' },
+  { id: 'cbs-981', name: 'CBS 표준FM', freq: '98.1 MHz', color: [15, 118, 110], sub: '정론직필 시사 저널리즘' },
+  { id: 'sbs-1035', name: 'SBS 러브FM', freq: '103.5 MHz', color: [194, 65, 12], sub: '생생한 시사와 유쾌한 토크' }
 ];
 
 // 1. Ensure target directories exist

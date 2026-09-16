@@ -150,6 +150,25 @@ async function main() {
     return `Show: "${data.showTitleKo || data.showTitle}" | Tier: ${data.tier}`;
   });
 
+  await runTest('Persona 1', 'Resolve YTN News FM 94.5 Rolling News (07:24 AM)', async () => {
+    const res = await fetch(`${BASE_URL}/api/stream/resolve?stationId=ytn-945&targetHour=7&targetMinute=24&band=seoul_in_usa`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    if (!data.success) throw new Error('Resolution failed');
+    if (!data.audioUrl) throw new Error('Missing audioUrl');
+    return `Show: "${data.showTitleKo || data.showTitle}" | Tier: ${data.tier}`;
+  });
+
+  await runTest('Persona 1', 'Resolve MBC Standard FM 95.9 Current Affairs (07:24 AM)', async () => {
+    const res = await fetch(`${BASE_URL}/api/stream/resolve?stationId=mbc-959&targetHour=7&targetMinute=24&band=seoul_in_usa`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    if (!data.success) throw new Error('Resolution failed');
+    if (!data.audioUrl) throw new Error('Missing audioUrl');
+    return `Show: "${data.showTitleKo || data.showTitle}" | Tier: ${data.tier}`;
+  });
+
+
   // --------------------------------------------------------------------------
   // SUITE 2: Persona 2 - Relocating Family in Seoul -> Monterey Bay
   // --------------------------------------------------------------------------
@@ -260,12 +279,12 @@ async function main() {
   });
 
   // --------------------------------------------------------------------------
-  // SUITE 3: 24-Hour Daypart Matrix (Zero Dead Air Check across 21 Stations)
+  // SUITE 3: 24-Hour Daypart Matrix (Zero Dead Air Check across 26 Stations)
   // --------------------------------------------------------------------------
-  console.log('\n[Suite 3: 24-Hour Daypart Coverage Matrix (All 21 Stations)]');
+  console.log('\n[Suite 3: 24-Hour Daypart Coverage Matrix (All 26 Stations)]');
 
   const STATIONS = [
-    // Seoul Band (10 stations)
+    // Seoul Band (15 stations)
     { id: 'mbc-919', band: 'seoul_in_usa' },
     { id: 'sbs-1077', band: 'seoul_in_usa' },
     { id: 'kbs-891', band: 'seoul_in_usa' },
@@ -276,6 +295,11 @@ async function main() {
     { id: 'kbs-1061', band: 'seoul_in_usa' },
     { id: 'tbs-1013', band: 'seoul_in_usa' },
     { id: 'afn-885', band: 'seoul_in_usa' },
+    { id: 'ytn-945', band: 'seoul_in_usa' },
+    { id: 'mbc-959', band: 'seoul_in_usa' },
+    { id: 'kbs-973', band: 'seoul_in_usa' },
+    { id: 'cbs-981', band: 'seoul_in_usa' },
+    { id: 'sbs-1035', band: 'seoul_in_usa' },
     // California Band (11 stations)
     { id: 'kazu-903', band: 'california_in_seoul' },
     { id: 'ksqd-907', band: 'california_in_seoul' },
@@ -292,7 +316,7 @@ async function main() {
 
   const SAMPLE_HOURS = [6, 8, 12, 15, 19, 1]; // Early Morning, Morning Rush, Midday, Afternoon, Evening, Deep Night
 
-  await runTest('Daypart Matrix', `Sample 126 station-hour combinations across 6 key dayparts`, async () => {
+  await runTest('Daypart Matrix', `Sample 156 station-hour combinations across 6 key dayparts`, async () => {
     let resolvedCount = 0;
     for (const st of STATIONS) {
       for (const h of SAMPLE_HOURS) {
@@ -445,8 +469,8 @@ async function main() {
     const data = await res.json();
     const stations: any[] = data.stations || [];
 
-    if (stations.length !== 10) {
-      throw new Error(`Expected exactly 10 Seoul stations, got ${stations.length}`);
+    if (stations.length !== 15) {
+      throw new Error(`Expected exactly 15 Seoul stations, got ${stations.length}`);
     }
 
     const nonKorean = stations.filter(s => s.country !== 'South Korea');
@@ -457,7 +481,8 @@ async function main() {
     // Verify presence of all expected Seoul stations
     const expectedSeoulIds = [
       'mbc-919', 'sbs-1077', 'kbs-891', 'tbs-951', 'cbs-939',
-      'ebs-1045', 'kbs-931', 'kbs-1061', 'tbs-1013', 'afn-885'
+      'ebs-1045', 'kbs-931', 'kbs-1061', 'tbs-1013', 'afn-885',
+      'ytn-945', 'mbc-959', 'kbs-973', 'cbs-981', 'sbs-1035'
     ];
     for (const expectedId of expectedSeoulIds) {
       if (!stations.some(s => s.id === expectedId)) {
@@ -472,7 +497,7 @@ async function main() {
       throw new Error(`California stations leaked into Seoul band: ${leakedCa.map(s => s.id).join(', ')}`);
     }
 
-    return `10/10 stations verified strictly South Korea / Seoul metro area`;
+    return `15/15 stations verified strictly South Korea / Seoul metro area`;
   });
 
   await runTest('Regional Audit', 'California Band (california_in_seoul): 100% Monterey Bay / Central Coast CA Fidelity', async () => {

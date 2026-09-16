@@ -91,9 +91,9 @@ Integrated Web Audio DSP signal processing chain shaping acoustic playback in re
 
 ---
 
-## 📻 The 21-Station Directory
+## 📻 The 26-Station Directory
 
-### Seoul Stations (10 Stations)
+### Seoul Stations (15 Stations)
 | Station Name | Frequency / ID | Network | Format | Primary Tier | Visible CAM |
 | :--- | :--- | :--- | :--- | :--- | :---: |
 | **MBC FM4U** | 91.9 MHz (`mbc-919`) | Munhwa Broadcasting Corp | K-Pop, Music & Morning Shows | `tier1_rss` | Yes |
@@ -106,6 +106,11 @@ Integrated Web Audio DSP signal processing chain shaping acoustic playback in re
 | **KBS Happy** | 106.1 MHz (`kbs-1061`)| Korean Broadcasting System | Popular Golden Hits & Retro Talk | `live_direct` | No |
 | **TBS eFM** | 101.3 MHz (`tbs-1013`)| Seoul Traffic Broadcasting | English-Language Seoul News & Culture | `live_direct` | No |
 | **AFN The Eagle**| 88.5 MHz (`afn-885`)| American Forces Network Korea | American Pop, Rock & Pacific News | `live_direct` | No |
+| **YTN News FM**| 94.5 MHz (`ytn-945`) | YTN News Network | 24/7 Rolling News, Politics & Economy | `live_direct` | No |
+| **MBC Standard**| 95.9 MHz (`mbc-959`)| Munhwa Broadcasting Corp | Current Affairs, Talk & Economy | `live_direct` | No |
+| **KBS Radio 1** | 97.3 MHz (`kbs-973`)| Korean Broadcasting System | Public Journalism & Policy Debate | `live_direct` | No |
+| **CBS Standard**| 98.1 MHz (`cbs-981`)| Christian Broadcasting System| Investigative Journalism & News Show | `live_direct` | No |
+| **SBS Love FM** | 103.5 MHz (`sbs-1035`)| Seoul Broadcasting System | Commercial Political Talk & Variety | `live_direct` | No |
 
 ### California Stations (11 Stations)
 | Station Name | Frequency / ID | City / Network | Format | Primary Tier | Notes |

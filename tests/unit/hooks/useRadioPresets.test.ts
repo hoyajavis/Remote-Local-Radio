@@ -118,7 +118,7 @@ describe('useRadioPresets hook', () => {
   it('ensures getStationsForBand strictly isolates bands and orders by numerical frequency (mhz ascending)', () => {
     // Seoul band audit
     const seoulStations = getStationsForBand('seoul_in_usa');
-    expect(seoulStations.length).toBe(10);
+    expect(seoulStations.length).toBe(15);
     seoulStations.forEach((s) => {
       expect(s.band).toBe('seoul_in_usa');
       expect(s.country).toBe('South Korea');
