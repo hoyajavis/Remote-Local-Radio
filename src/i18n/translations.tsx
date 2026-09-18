@@ -111,6 +111,7 @@ export interface Translations {
   helpBullet2: string;
   helpBullet3: string;
   helpBullet4: string;
+  helpBullet5: string;
   helpCloseBtn: string;
 
   // Footer
@@ -258,6 +259,7 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     helpBullet2: '🇺🇸 CA in Korea: California Central Coast & Monterey Bay radio (KAZU NPR, KQED, KDON Top 40, KOCN Oldies, KDFC Classical) playing live or time-aligned in Seoul.',
     helpBullet3: '📺 Studio Cam (보이는 라디오): Tap CAM to toggle synchronized studio video and VOD with sub-minute precision.',
     helpBullet4: '🎛️ Car Stereo Controls & Presets: Tap ◀ SEEK ▶ to browse stations. Press & hold any button 1–6 to save your current station, just like a car stereo.',
+    helpBullet5: '💾 Personal & Private Presets: Standard presets load automatically when you first visit, but anything you do from there—including saving your own stations to presets 1–6—is saved strictly on your local device. You won\'t affect anyone else\'s radio, so customize it freely!',
     helpCloseBtn: 'Got it, Back to Radio',
 
     // Footer
@@ -403,6 +405,7 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     helpBullet2: '🇺🇸 캘리포니아 사운드 (CA in Korea): 캘리포니아 몬터레이 베이 및 센트럴 코스트 현지 방송(KAZU NPR, KQED, KDON Top 40, KOCN 올디스, KDFC 클래식)을 한국에서 청취합니다.',
     helpBullet3: '📺 보이는 라디오 (CAM): 영상 버튼을 눌러 스튜디오 생중계 및 VOD를 초 단위까지 정확하게 동기화하여 시청할 수 있습니다.',
     helpBullet4: '🎛️ 자동차 오디오 방식 조작: ◀ SEEK ▶ 버튼으로 전체 방송을 탐색하고, 마음에 드는 채널을 들으며 1~6번 버튼을 길게 누르면(Hold) 차량 오디오처럼 즉시 저장됩니다.',
+    helpBullet5: '💾 나만의 개인 프리셋 (로컬 기기 저장): 처음 접속 시 기본 프리셋이 제공되지만, 1~6번 프리셋 채널 변경을 포함한 모든 설정은 청취자 본인의 기기에만 저장됩니다. 다른 사용자나 서버에 전혀 영향을 주지 않으니 마음껏 나만의 라디오로 설정해 보세요!',
     helpCloseBtn: '확인, 라디오로 돌아가기',
 
     // Footer

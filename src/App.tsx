@@ -389,7 +389,7 @@ export default function App() {
               <p>{t.helpP1}</p>
               <p className="font-semibold text-stone-200">{t.helpP2}</p>
               <div className="space-y-2 pt-1">
-                {[t.helpBullet1, t.helpBullet2, t.helpBullet3, t.helpBullet4].map((bullet, idx) => {
+                {[t.helpBullet1, t.helpBullet2, t.helpBullet3, t.helpBullet4, t.helpBullet5].map((bullet, idx) => {
                   const colonIndex = bullet.indexOf(':');
                   const title = colonIndex !== -1 ? bullet.slice(0, colonIndex).trim() : bullet;
                   const desc = colonIndex !== -1 ? bullet.slice(colonIndex + 1).trim() : '';
